@@ -52,12 +52,12 @@ export const getSingleCampus = (id) => {
   };
 };
 
-export const addNewCampus = () => {
+export const addNewCampus = (obj) => {
   return async (dispatch) => {
     try {
       const response = await axios.post(
         "http://localhost:8080/api/campuses/newCampus",
-        { name: "yooooooo", address: "hfheowfhoe", description: "hello" }
+        obj
       );
       dispatch(addedNewCampus());
     } catch (error) {
@@ -71,7 +71,7 @@ const campusReducer = (state = initialState, action) => {
     case GOT_ALL_CAMPUSES:
       return { ...state, campuses: action.payload };
     case ADDED_NEW_CAMPUS:
-      return state;
+      return { ...state };
     case GOT_SINGLE_CAMPUS:
       return { ...state, singleCampus: action.payload };
     default:
