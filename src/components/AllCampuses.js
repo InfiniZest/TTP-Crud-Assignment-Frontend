@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getAllCampuses, addNewCampus } from "../redux/reducers";
+import { Link } from "react-router-dom";
 
 import DisplayCampus from "./DisplayCampus";
+import NewCampus from "./NewCampus";
 
 class AllCampuses extends Component {
   async componentDidMount() {
@@ -10,27 +12,36 @@ class AllCampuses extends Component {
     // await this.props.addNewCampus;
   }
 
-  handleClick = () => {
-    this.props.addNew();
-  };
-
   render() {
     console.log(this.props);
-    return (
-      <div>
-        <button onClick={this.handleClick}>Add New Campus</button>
-        {this.props.campuses.map((item, index) => {
-          return (
-            <DisplayCampus
-              key={index}
-              name={item.name}
-              address={item.address}
-              description={item.description}
-            />
-          );
-        })}
-      </div>
-    );
+    if (this.props.campuses.length > 0)
+      return (
+        <div>
+          <Link to="/campuses/new">
+            <button>Add New Campus</button>
+          </Link>
+
+          {this.props.campuses.map((item, index) => {
+            return (
+              <DisplayCampus
+                key={index}
+                name={item.name}
+                imageUrl={item.imageUrl}
+                id={item.id}
+              />
+            );
+          })}
+        </div>
+      );
+    else
+      return (
+        <div>
+          <Link to="/campuses/new">
+            <button>Add New Campus</button>
+          </Link>
+          <p> No Campuses Found</p>
+        </div>
+      );
   }
 }
 const mapStateToProps = (state) => {
