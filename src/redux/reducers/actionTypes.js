@@ -1,0 +1,2 @@
+export const GOT_ALL_CAMPUSES = "GOT_ALL_CAMPUSES";
+export const ADDED_NEW_CAMPUS = "ADDED_NEW_CAMPUS";
