@@ -1,23 +1,39 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 class DisplayStudent extends Component {
   constructor(props) {
     super(props);
   }
-  
+
   render() {
-    const myLink = `/campuses/${this.props.id}`;
+    const myLink = `/students/${this.props.id}`;
     return (
       <div>
-        <img src={this.props.imageUrl} alt="campus image"></img>
+        Last Name: {this.props.lastName}
         <br />
-            <p>{this.props.name}</p>
+        First Name: {this.props.firstName}
         <br />
-            <p>{this.props.key}</p>
+        <button>DELETE</button>
+        <button>EDIT</button>
+        <br />
+        <Link to={myLink}>View Student</Link>
       </div>
     );
   }
 }
 
-export default DisplayStudent;
+const mapStateToProps = (state) => {
+  return {
+    students: state.students,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    delete: () => console.log("hey"),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DisplayStudent);

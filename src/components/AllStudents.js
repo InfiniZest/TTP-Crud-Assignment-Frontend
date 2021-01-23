@@ -4,48 +4,59 @@ import { getAllStudents, addNewStudent } from "../redux/reducers";
 import { Link } from "react-router-dom";
 
 import DisplayStudent from "./DisplayStudent";
+import NewStudent from "./NewStudent";
 
 class AllStudents extends Component {
-    render() {
-        // Length not defined on this.props.students.length
-        /*
-        if(this.props.students.length > 0) {
+  async componentDidMount() {
+    await this.props.getAll();
+  }
+
+  render() {
+    console.log(this.props);
+    if (this.props.students.length > 0)
+      return (
+        <div>
+          <Link to="/students/new">
+            <button>Add New Student</button>
+          </Link>
+
+          {this.props.students.map((item, index) => {
             return (
-                <div>
-                    {this.props.students.map((item, index) => {
-                        return (
-                            <DisplayStudent
-                                id={item.id}
-                                key={index}
-                                name={item.name}
-                                gpa={item.gpa}
-                                email={item.email}
-                                imageUrl={item.imageUrl}
-                            />
-                        );
-                    })}
-                </div>
+              <DisplayStudent
+                id={item.id}
+                key={index}
+                firstName={item.firstName}
+                lastName={item.lastName}
+                gpa={item.gpa}
+                email={item.email}
+                imageUrl={item.imageUrl}
+              />
             );
-        }
-        */
-        return (
-            <div>
-                <p> No Students Found </p>
-            </div>
-        );
-    }
+          })}
+        </div>
+      );
+    else
+      return (
+        <div>
+          <Link to="/students/new">
+            <button>Add New Student</button>
+          </Link>
+
+          <p> No Students Found</p>
+        </div>
+      );
+  }
 }
 
 const mapStateToProps = (state) => {
   return {
-    student: state.student,
+    students: state.students,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     getAll: () => dispatch(getAllStudents()),
-    addNew: () => dispatch(addNewStudent()),
   };
 };
 

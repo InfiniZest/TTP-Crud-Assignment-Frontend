@@ -7,11 +7,14 @@ import {
   GOT_ALL_STUDENTS,
   ADDED_NEW_STUDENT,
   DELETED_CAMPUS,
+  GOT_SINGLE_STUDENT,
 } from "./actionTypes";
 
 const initialState = {
   campuses: [],
   singleCampus: {},
+  students: [],
+  singleStudent: {},
 };
 
 const gotAllCampuses = (payload) => ({
@@ -95,6 +98,12 @@ const campusReducer = (state = initialState, action) => {
       return { ...state, singleCampus: action.payload };
     case DELETED_CAMPUS:
       return { ...state };
+    case GOT_ALL_STUDENTS:
+      return { ...state, students: action.payload };
+    case GOT_SINGLE_STUDENT:
+      return { ...state, singleStudent: action.payload };
+    case ADDED_NEW_STUDENT:
+      return { ...state, singleStudent: action.payload };
     default:
       return state;
   }
@@ -116,18 +125,37 @@ export const getAllStudents = () => {
   };
 };
 
-const addedNewStudent = () => ({
-  type: ADDED_NEW_STUDENT,
+const gotSingleStudent = (payload) => ({
+  type: GOT_SINGLE_STUDENT,
+  payload,
 });
 
-export const addNewStudent = () => {
+export const getSingleStudent = (id) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/api/students/${id}`
+      );
+      dispatch(gotSingleStudent(response.data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+const addedNewStudent = (payload) => ({
+  type: ADDED_NEW_STUDENT,
+  payload,
+});
+
+export const addNewStudent = (obj) => {
   return async (dispatch) => {
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/campuses/addNewStudent",
-        { name: "yooooooo", address: "hfheowfhoe", description: "hello" }
+        "http://localhost:8080/api/students/newStudent",
+        obj
       );
-      dispatch(addedNewStudent());
+      dispatch(addedNewStudent(response.data));
     } catch (error) {
       console.error(error);
     }
