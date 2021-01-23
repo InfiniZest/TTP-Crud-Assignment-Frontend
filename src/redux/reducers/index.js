@@ -5,8 +5,8 @@ import {
   GOT_SINGLE_CAMPUS,
   ADDED_NEW_CAMPUS,
   GOT_ALL_STUDENTS,
-  ADDED_NEW_STUDENT
-
+  ADDED_NEW_STUDENT,
+  DELETED_CAMPUS,
 } from "./actionTypes";
 
 const initialState = {
@@ -19,13 +19,18 @@ const gotAllCampuses = (payload) => ({
   payload,
 });
 
-const addedNewCampus = () => ({
+const addedNewCampus = (payload) => ({
   type: ADDED_NEW_CAMPUS,
+  payload,
 });
 
 const gotSingleCampus = (payload) => ({
   type: GOT_SINGLE_CAMPUS,
   payload,
+});
+
+const deletedCampus = () => ({
+  type: DELETED_CAMPUS,
 });
 
 export const getAllCampuses = () => {
@@ -59,7 +64,21 @@ export const addNewCampus = (obj) => {
         "http://localhost:8080/api/campuses/newCampus",
         obj
       );
-      dispatch(addedNewCampus());
+      console.log(response.data);
+      dispatch(addedNewCampus(response.data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+export const deleteCampus = (id) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:8080/api/campuses/delete/${id}`
+      );
+      dispatch(deletedCampus());
     } catch (error) {
       console.error(error);
     }
@@ -71,9 +90,11 @@ const campusReducer = (state = initialState, action) => {
     case GOT_ALL_CAMPUSES:
       return { ...state, campuses: action.payload };
     case ADDED_NEW_CAMPUS:
-      return { ...state };
+      return { ...state, singleCampus: action.payload };
     case GOT_SINGLE_CAMPUS:
       return { ...state, singleCampus: action.payload };
+    case DELETED_CAMPUS:
+      return { ...state };
     default:
       return state;
   }

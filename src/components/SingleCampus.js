@@ -5,21 +5,27 @@ import { getSingleCampus } from "../redux/reducers";
 class SingleCampus extends Component {
   async componentDidMount() {
     let id = this.props.match.params.id;
-    this.props.getSingleCampus(id);
+    await this.props.getSingleCampus(id);
   }
   render() {
-    return (
-      <div>
-        Campus Name: {this.props.singleCampus.name}
-        <br />
-        Address: {this.props.singleCampus.address}
-        <br />
-        Description: {this.props.singleCampus.description}
-        <br />
-        <img src={this.props.singleCampus.imgUrl} alt="campus image"></img>
-        <br />
-      </div>
-    );
+    if (this.props.singleCampus)
+      return (
+        <div>
+          Campus Name: {this.props.singleCampus.name}
+          <br />
+          Address: {this.props.singleCampus.address}
+          <br />
+          Description: {this.props.singleCampus.description}
+          <br />
+          <img
+            src={this.props.singleCampus.imageUrl}
+            alt="campus image"
+            width="200px"
+          ></img>
+          <br />
+        </div>
+      );
+    else return <p>Campus Not Found</p>;
   }
 }
 

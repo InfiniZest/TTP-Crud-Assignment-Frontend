@@ -1,26 +1,53 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+
+import { deleteCampus } from "../redux/reducers";
+import { connect } from "react-redux";
 
 class DisplayCampus extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      redirect: false,
+    };
   }
 
+  handleClick = () => {
+    this.props.delete(this.props.id);
+    this.setState({ redirect: true });
+  };
+
   render() {
-    const myLink = `/campuses/${this.props.id}`;
-    return (
-      <div>
-        Campus Name: {this.props.name}
-        <br />
-        <img src={this.props.imageUrl} alt="campus image"></img>
-        <br />
-        <button>DELETE</button>
-        <button>EDIT</button>
-        <br />
-        <Link to={myLink}>View Campus</Link>
-      </div>
-    );
+    if (this.state.redirect) return <Redirect to="/campuses"></Redirect>;
+    else {
+      const myLink = `/campuses/${this.props.id}`;
+      return (
+        <div>
+          Campus Name: {this.props.name}
+          <br />
+          <img src={this.props.imageUrl} alt="campus image" width="150px"></img>
+          <br />
+          <button onClick={this.handleClick}>DELETE</button>
+          <button>EDIT</button>
+          <br />
+          <Link to={myLink}>View Campus</Link>
+        </div>
+      );
+    }
   }
 }
 
-export default DisplayCampus;
+const mapStateToProps = (state) => {
+  return {
+    campuses: state.campuses,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    delete: (id) => dispatch(deleteCampus(id)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DisplayCampus);

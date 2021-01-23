@@ -12,6 +12,7 @@ class NewCampus extends Component {
         name: "",
         address: "",
         description: "",
+        imageUrl: "",
       },
       redirect: false,
     };
@@ -29,19 +30,23 @@ class NewCampus extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.addNew(this.state.obj);
-    this.setState({ redirect: true });
-
-    // const index = this.props.campuses.length;
-
-    // const link = `/campuses/${this.props.campuses[index - 1].id}`;
-    // console.log(link);
-    // <Redirect to={link}></Redirect>;
+    this.submitted();
   };
 
+  submitted = () => {
+    console.log("i got called");
+    this.setState({ redirect: true });
+  };
+
+  shouldComponentRender() {
+    console.log("should render");
+  }
+
   render() {
-    console.log(this.state.redirect);
-    //redirect to single campus view
-    // if (this.state.redirect) <Redirect to="/campuses"></Redirect>;
+    // if (this.state.redirect)
+    //   return (
+    //     <Redirect to={`/campuses/${this.props.singleCampus.id}`}></Redirect>
+    //   );
 
     return (
       <div>
@@ -64,16 +69,22 @@ class NewCampus extends Component {
             value={this.state.obj.description}
             onChange={this.handleChange}
           ></input>
+          <label>Image Url:</label>
+          <input
+            name="imageUrl"
+            value={this.state.obj.imageUrl}
+            onChange={this.handleChange}
+          ></input>
           <input type="submit" value="Submit"></input>
         </form>
       </div>
     );
   }
 }
-
 const mapStateToProps = (state) => {
   return {
     campuses: state.campuses,
+    singleCampus: state.singleCampus,
   };
 };
 
