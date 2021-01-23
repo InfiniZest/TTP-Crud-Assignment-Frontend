@@ -4,10 +4,6 @@ import { Link } from "react-router-dom";
 import AllStudents from "./AllStudents";
 
 class AllStudentsContainer extends Component {
-    async componentDidMount() {
-        await this.props.getAll();
-    }
-
     render() {
         return (
             <div className="AllStudentsPage">

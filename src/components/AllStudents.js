@@ -6,10 +6,15 @@ import { Link } from "react-router-dom";
 import DisplayStudent from "./DisplayStudent";
 
 class AllStudents extends Component {
+    
+    async componentDidMount() {
+        await this.props.getAllStudents();
+    }
+    
     render() {
         // Length not defined on this.props.students.length
-        /*
-        if(this.props.students.length > 0) {
+        console.log(this.props);
+        if(this.props.studentList.length > 0) {
             return (
                 <div>
                     {this.props.students.map((item, index) => {
@@ -27,7 +32,7 @@ class AllStudents extends Component {
                 </div>
             );
         }
-        */
+        
         return (
             <div>
                 <p> No Students Found </p>
@@ -38,14 +43,14 @@ class AllStudents extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    student: state.student,
+    studentList: state.studentList,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getAll: () => dispatch(getAllStudents()),
-    addNew: () => dispatch(addNewStudent()),
+    getAllStudents: () => dispatch(getAllStudents()),
+    addNewStudent: () => dispatch(addNewStudent()),
   };
 };
 

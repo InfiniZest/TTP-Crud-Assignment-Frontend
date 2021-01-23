@@ -5,6 +5,7 @@ import {
   GOT_SINGLE_CAMPUS,
   ADDED_NEW_CAMPUS,
   GOT_ALL_STUDENTS,
+  GOT_ONE_STUDENT,
   ADDED_NEW_STUDENT
 
 } from "./actionTypes";
@@ -12,6 +13,8 @@ import {
 const initialState = {
   campuses: [],
   singleCampus: {},
+  studentList: [],
+  student: {}
 };
 
 const gotAllCampuses = (payload) => ({
@@ -79,8 +82,19 @@ const campusReducer = (state = initialState, action) => {
   }
 };
 
+// ------------Student Reducer------------ //
+
 const gotAllStudents = (payload) => ({
   type: GOT_ALL_STUDENTS,
+  payload,
+});
+
+const addedNewStudent = () => ({
+  type: ADDED_NEW_STUDENT,
+});
+
+const gotOneStudent = (payload) => ({
+  type: GOT_ONE_STUDENT,
   payload,
 });
 
@@ -95,22 +109,43 @@ export const getAllStudents = () => {
   };
 };
 
-const addedNewStudent = () => ({
-  type: ADDED_NEW_STUDENT,
-});
+export const getSingleStudent = (id) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/api/students/${id}`
+      );
+      dispatch(gotOneStudent(response.data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
 
 export const addNewStudent = () => {
   return async (dispatch) => {
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/campuses/addNewStudent",
-        { name: "yooooooo", address: "hfheowfhoe", description: "hello" }
+        "http://localhost:8080/api/students/addNewStudent",
       );
       dispatch(addedNewStudent());
     } catch (error) {
       console.error(error);
     }
   };
+};
+
+const studentReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GOT_ALL_STUDENTS:
+      return { ...state, studentList: action.payload };
+    case ADDED_NEW_STUDENT:
+      return state;
+    case GOT_ONE_STUDENT:
+      return { ...state, student: action.payload };
+    default:
+      return state;
+  }
 };
 
 export default campusReducer;
