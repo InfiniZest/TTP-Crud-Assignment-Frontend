@@ -13,7 +13,8 @@ class NewStudent extends Component {
         lastName: "",
         email: "",
         imageUrl: "",
-        gpa: 0,
+        gpa: null,
+        campusId: null,
       },
       redirect: false,
     };
@@ -61,9 +62,28 @@ class NewStudent extends Component {
             value={this.state.obj.email}
             onChange={this.handleChange}
           ></input>
+          <label>Campus ID: </label>
+          <input
+            name="campusId"
+            value={this.state.obj.campusId}
+            onChange={this.handleChange}
+          ></input>
+          <label>GPA: </label>
+          <input
+            name="gpa"
+            value={this.state.obj.gpa}
+            onChange={this.handleChange}
+          ></input>
 
           <input type="submit" value="Submit"></input>
         </form>
+        {this.state.redirect ? (
+          <Redirect
+            to={`/students/${this.props.singleStudent.id + 1}`}
+          ></Redirect>
+        ) : (
+          ""
+        )}
       </div>
     );
   }

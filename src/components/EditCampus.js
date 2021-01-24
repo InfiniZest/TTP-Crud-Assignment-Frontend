@@ -42,7 +42,7 @@ class EditCampus extends Component {
   render() {
     console.log(this.state);
     if (!this.props.singleCampus) return <p>Loading...</p>;
-    if (this.state.redirect) return <Redirect to={`/campuses`}></Redirect>;
+
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -50,6 +50,7 @@ class EditCampus extends Component {
           <input
             name="name"
             value={this.state.name}
+            placeholder={this.props.singleCampus.name}
             onChange={(e) => this.handleChange(e)}
           ></input>
           <label>Campus Location:</label>
@@ -74,6 +75,7 @@ class EditCampus extends Component {
             value={this.state.description}
             onChange={(e) => this.handleChange(e)}
           ></input>
+
           <input type="submit" value="Save Changes"></input>
         </form>
       </div>

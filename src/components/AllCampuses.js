@@ -28,6 +28,7 @@ class AllCampuses extends Component {
                 name={item.name}
                 imageUrl={item.imageUrl}
                 id={item.id}
+                students={item.students}
               />
             );
           })}

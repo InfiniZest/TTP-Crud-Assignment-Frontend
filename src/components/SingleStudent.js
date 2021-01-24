@@ -1,14 +1,30 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getSingleStudent } from "../redux/reducers";
+import { Redirect } from "react-router-dom";
+import {
+  deleteStudent,
+  getSingleCampus,
+  getSingleStudent,
+} from "../redux/reducers";
 
 class SingleStudent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      redirect: false,
+    };
+  }
   async componentDidMount() {
     let id = this.props.match.params.id;
     await this.props.getSingleStudent(id);
   }
+
+  deleteStudent = () => {
+    this.props.delete(this.props.singleStudent.id);
+  };
   render() {
-    if (this.props.singleStudent)
+    if (this.state.redirect) return <Redirect to="/students"></Redirect>;
+    else if (this.props.singleStudent)
       return (
         <div>
           Last Name: {this.props.singleStudent.lastName}
@@ -17,7 +33,15 @@ class SingleStudent extends Component {
           <br />
           Email: {this.props.singleStudent.email}
           <br />
-          GPA: {this.props.singleStudent.gpa}
+          GPA:{" "}
+          {this.props.singleStudent.gpa
+            ? this.props.singleStudent.gpa
+            : "unavailable"}
+          <br />
+          Campus Name:
+          {this.props.singleStudent.campus
+            ? this.props.singleStudent.campus.name
+            : "not enrolled in any campus"}
           <br />
           <img
             src={this.props.singleStudent.imageUrl}
@@ -25,6 +49,7 @@ class SingleStudent extends Component {
             width="200px"
           ></img>
           <br />
+          <button onClick={this.deleteStudent}>DELETE</button>
         </div>
       );
     else return <p>Student Not Found</p>;
@@ -34,12 +59,14 @@ class SingleStudent extends Component {
 const mapStateToProps = (state) => {
   return {
     singleStudent: state.singleStudent,
+    campus: state.singleCampus,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     getSingleStudent: (id) => dispatch(getSingleStudent(id)),
+    delete: (id) => dispatch(deleteStudent(id)),
   };
 };
 

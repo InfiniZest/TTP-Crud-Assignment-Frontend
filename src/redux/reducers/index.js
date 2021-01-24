@@ -81,7 +81,7 @@ export const addNewCampus = (obj) => {
   };
 };
 
-export const updateCampus = (obj, id) => {
+export const updateCampus = (obj, id, ownProps) => {
   return async (dispatch) => {
     try {
       const response = await axios.put(
