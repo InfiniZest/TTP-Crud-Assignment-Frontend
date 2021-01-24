@@ -10,6 +10,7 @@ import {
   GOT_SINGLE_STUDENT,
   DELETED_STUDENT,
   UPDATED_CAMPUS,
+  UPDATED_STUDENT,
 } from "./actionTypes";
 
 const initialState = {
@@ -109,7 +110,7 @@ export const deleteCampus = (id) => {
   };
 };
 
-const campusReducer = (state = initialState, action) => {
+const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case GOT_ALL_CAMPUSES:
       return { ...state, campuses: action.payload };
@@ -128,6 +129,8 @@ const campusReducer = (state = initialState, action) => {
     case ADDED_NEW_STUDENT:
       return { ...state, singleStudent: action.payload };
     case DELETED_STUDENT:
+      return { ...state };
+    case UPDATED_STUDENT:
       return { ...state };
     default:
       return state;
@@ -204,4 +207,23 @@ export const deleteStudent = (id) => {
   };
 };
 
-export default campusReducer;
+const updatedStudent = () => ({
+  type: UPDATED_STUDENT,
+});
+
+export const updateStudent = (obj, id) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:8080/api/students/edit/${id}`,
+        obj
+      );
+      console.log(response.data);
+      dispatch(updatedStudent(response.data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+export default rootReducer;

@@ -48,6 +48,7 @@ class SingleCampus extends Component {
               return (
                 <Link to={`/students/${item.id}`}>
                   <div>
+                    <img src={item.imageUrl} width="60px" />
                     {item.lastName} {item.firstName}
                   </div>
                 </Link>

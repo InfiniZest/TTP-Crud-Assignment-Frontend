@@ -12,14 +12,17 @@ import AllStudents from "./components/AllStudents";
 import NewStudent from "./components/NewStudent";
 import SingleStudent from "./components/SingleStudent";
 import Test from "./components/Test";
+import EditStudent from "./components/EditStudent";
 
 function App() {
   return (
     <div className="App">
       <Router>
-        <Link to="/">Home</Link>
-        <Link to="/campuses">All Campuses</Link>
-        <Link to="/students">All Students</Link>
+        <div className="navbar">
+          <Link to="/">Home</Link>
+          <Link to="/campuses">All Campuses</Link>
+          <Link to="/students">All Students</Link>
+        </div>
         <Switch>
           <Route exact path="/"></Route>
           <Route exact path="/campuses" component={AllCampuses}></Route>
@@ -29,6 +32,7 @@ function App() {
           <Route exact path="/students" component={AllStudents}></Route>
           <Route exact path="/student/new" component={NewStudent}></Route>
           <Route exact path="/students/:id" component={SingleStudent}></Route>
+          <Route exact path="/student/edit/:id" component={EditStudent}></Route>
         </Switch>
       </Router>
     </div>

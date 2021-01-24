@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import {
   deleteStudent,
   getSingleCampus,
@@ -38,7 +38,7 @@ class SingleStudent extends Component {
             ? this.props.singleStudent.gpa
             : "unavailable"}
           <br />
-          Campus Name:
+          Campus Name:{" "}
           {this.props.singleStudent.campus
             ? this.props.singleStudent.campus.name
             : "not enrolled in any campus"}
@@ -49,6 +49,9 @@ class SingleStudent extends Component {
             width="200px"
           ></img>
           <br />
+          <Link to={`/student/edit/${this.props.id}`}>
+            <button>EDIT</button>
+          </Link>
           <button onClick={this.deleteStudent}>DELETE</button>
         </div>
       );

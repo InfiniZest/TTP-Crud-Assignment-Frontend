@@ -16,9 +16,9 @@ class AllCampuses extends Component {
     console.log(this.props);
     if (this.props.campuses.length > 0)
       return (
-        <div>
+        <div class="displayAll">
           <Link to="/campuses/new">
-            <button>Add New Campus</button>
+            <button className="addNew">Add New Campus</button>
           </Link>
 
           {this.props.campuses.map((item, index) => {
@@ -36,9 +36,9 @@ class AllCampuses extends Component {
       );
     else
       return (
-        <div>
+        <div className="displayAll">
           <Link to="/campuses/new">
-            <button>Add New Campus</button>
+            <button className="addNew">Add New Campus</button>
           </Link>
           <p> No Campuses Found</p>
         </div>

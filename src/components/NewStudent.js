@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { addNewStudent } from "../redux/reducers";
+import { addNewStudent, getAllCampuses } from "../redux/reducers";
 
 class NewStudent extends Component {
   constructor(props) {
@@ -16,8 +16,13 @@ class NewStudent extends Component {
         gpa: null,
         campusId: null,
       },
-      redirect: false,
+      render: false,
     };
+  }
+
+  async componentDidMount() {
+    await this.props.getCampuses();
+    this.setState({ render: true });
   }
 
   handleChange = (e) => {
@@ -41,6 +46,8 @@ class NewStudent extends Component {
   };
 
   render() {
+    // console.log(this.props.campuses);
+    // if (this.state.render)
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -74,18 +81,34 @@ class NewStudent extends Component {
             value={this.state.obj.gpa}
             onChange={this.handleChange}
           ></input>
+          <label>Image URL: </label>
+          <input
+            name="imageUrl"
+            value={this.state.obj.imageUrl}
+            onChange={this.handleChange}
+          ></input>
+          {/* {this.props.campuses ? (
+              <select>
+                {this.props.campuses.map((item) => {
+                  return <option>{item.name}</option>;
+                })}
+              </select>
+            ) : (
+              ""
+            )} */}
 
           <input type="submit" value="Submit"></input>
         </form>
-        {this.state.redirect ? (
+        {/* {this.state.redirect ? (
           <Redirect
             to={`/students/${this.props.singleStudent.id + 1}`}
           ></Redirect>
         ) : (
           ""
-        )}
+        )} */}
       </div>
     );
+    // else return <p>Loading ...</p>;
   }
 }
 
@@ -93,12 +116,14 @@ const mapStateToProps = (state) => {
   return {
     students: state.students,
     singleStudent: state.singleStudent,
+    campuses: state.campuses,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     addNew: (obj) => dispatch(addNewStudent(obj)),
+    getCampuses: () => dispatch(getAllCampuses),
   };
 };
 

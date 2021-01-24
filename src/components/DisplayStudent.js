@@ -26,7 +26,9 @@ class DisplayStudent extends Component {
         First Name: {this.props.firstName}
         <br />
         <button onClick={this.handleClick}>DELETE</button>
-        <button>EDIT</button>
+        <Link to={`/student/edit/${this.props.id}`}>
+          <button>EDIT</button>
+        </Link>
         <br />
         <Link to={myLink}>View Student</Link>
       </div>

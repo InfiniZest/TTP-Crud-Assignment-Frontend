@@ -72,13 +72,13 @@ class NewCampus extends Component {
           ></input>
           <input type="submit" value="Submit"></input>
         </form>
-        {this.state.redirect ? (
+        {/* {this.state.redirect ? (
           <Redirect
             to={`/campuses/${this.props.singleCampus.id + 1}`}
           ></Redirect>
         ) : (
           ""
-        )}
+        )} */}
       </div>
     );
   }

@@ -36,3 +36,36 @@
     transform: rotate(360deg);
   }
 }
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  background-color: antiquewhite;
+  padding: 0.5em;
+}
+
+.navbar a {
+  text-decoration: none;
+  padding: 1em;
+  background-color: aquamarine;
+  margin: 0px 5px;
+}
+
+.displayAll {
+  display: flex;
+}
+
+.singleCampus {
+  background-color: azure;
+  margin: 3px;
+}
+
+.addNew {
+  width: 100%;
+}

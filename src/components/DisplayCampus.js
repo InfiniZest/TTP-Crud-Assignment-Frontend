@@ -23,7 +23,7 @@ class DisplayCampus extends Component {
     else {
       const myLink = `/campuses/${this.props.id}`;
       return (
-        <div>
+        <div className="singleCampus">
           Campus Name: {this.props.name}
           <br />
           <img src={this.props.imageUrl} alt="campus image" width="150px"></img>
