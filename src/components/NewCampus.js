@@ -43,11 +43,6 @@ class NewCampus extends Component {
   }
 
   render() {
-    // if (this.state.redirect)
-    //   return (
-    //     <Redirect to={`/campuses/${this.props.singleCampus.id}`}></Redirect>
-    //   );
-
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -77,6 +72,13 @@ class NewCampus extends Component {
           ></input>
           <input type="submit" value="Submit"></input>
         </form>
+        {/* {this.state.redirect ? (
+          <Redirect
+            to={`/campuses/${this.props.singleCampus.id + 1}`}
+          ></Redirect>
+        ) : (
+          ""
+        )} */}
       </div>
     );
   }

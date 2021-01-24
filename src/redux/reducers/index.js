@@ -7,11 +7,17 @@ import {
   GOT_ALL_STUDENTS,
   ADDED_NEW_STUDENT,
   DELETED_CAMPUS,
+  GOT_SINGLE_STUDENT,
+  DELETED_STUDENT,
+  UPDATED_CAMPUS,
+  UPDATED_STUDENT,
 } from "./actionTypes";
 
 const initialState = {
   campuses: [],
   singleCampus: {},
+  students: [],
+  singleStudent: {},
 };
 
 const gotAllCampuses = (payload) => ({
@@ -31,6 +37,10 @@ const gotSingleCampus = (payload) => ({
 
 const deletedCampus = () => ({
   type: DELETED_CAMPUS,
+});
+
+const updatedCampus = () => ({
+  type: UPDATED_CAMPUS,
 });
 
 export const getAllCampuses = () => {
@@ -72,6 +82,21 @@ export const addNewCampus = (obj) => {
   };
 };
 
+export const updateCampus = (obj, id, ownProps) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:8080/api/campuses/edit/${id}`,
+        obj
+      );
+      console.log(response.data);
+      dispatch(updatedCampus(response.data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
 export const deleteCampus = (id) => {
   return async (dispatch) => {
     try {
@@ -85,7 +110,7 @@ export const deleteCampus = (id) => {
   };
 };
 
-const campusReducer = (state = initialState, action) => {
+const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case GOT_ALL_CAMPUSES:
       return { ...state, campuses: action.payload };
@@ -94,6 +119,18 @@ const campusReducer = (state = initialState, action) => {
     case GOT_SINGLE_CAMPUS:
       return { ...state, singleCampus: action.payload };
     case DELETED_CAMPUS:
+      return { ...state };
+    case UPDATED_CAMPUS:
+      return { ...state };
+    case GOT_ALL_STUDENTS:
+      return { ...state, students: action.payload };
+    case GOT_SINGLE_STUDENT:
+      return { ...state, singleStudent: action.payload };
+    case ADDED_NEW_STUDENT:
+      return { ...state, singleStudent: action.payload };
+    case DELETED_STUDENT:
+      return { ...state };
+    case UPDATED_STUDENT:
       return { ...state };
     default:
       return state;
@@ -116,22 +153,77 @@ export const getAllStudents = () => {
   };
 };
 
-const addedNewStudent = () => ({
-  type: ADDED_NEW_STUDENT,
+const gotSingleStudent = (payload) => ({
+  type: GOT_SINGLE_STUDENT,
+  payload,
 });
 
-export const addNewStudent = () => {
+export const getSingleStudent = (id) => {
   return async (dispatch) => {
     try {
-      const response = await axios.post(
-        "http://localhost:8080/api/campuses/addNewStudent",
-        { name: "yooooooo", address: "hfheowfhoe", description: "hello" }
+      const response = await axios.get(
+        `http://localhost:8080/api/students/${id}`
       );
-      dispatch(addedNewStudent());
+      dispatch(gotSingleStudent(response.data));
     } catch (error) {
       console.error(error);
     }
   };
 };
 
-export default campusReducer;
+const addedNewStudent = (payload) => ({
+  type: ADDED_NEW_STUDENT,
+  payload,
+});
+
+export const addNewStudent = (obj) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/students/newStudent",
+        obj
+      );
+      dispatch(addedNewStudent(response.data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+const deletedStudent = () => ({
+  type: DELETED_STUDENT,
+});
+
+export const deleteStudent = (id) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:8080/api/students/delete/${id}`
+      );
+      dispatch(deletedStudent());
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+const updatedStudent = () => ({
+  type: UPDATED_STUDENT,
+});
+
+export const updateStudent = (obj, id) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:8080/api/students/edit/${id}`,
+        obj
+      );
+      console.log(response.data);
+      dispatch(updatedStudent(response.data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+export default rootReducer;
