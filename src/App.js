@@ -8,6 +8,7 @@ import DisplayCampus from "./components/DisplayCampus";
 import SingleCampus from "./components/SingleCampus";
 import AllStudentsContainer from "./components/AllStudentsContainer";
 import AllStudents from "./components/AllStudents";
+import NewStudent from "./components/NewStudent";
 
 function App() {
   return (
@@ -19,7 +20,8 @@ function App() {
           <Route exact path="/campuses" component={AllCampuses}></Route>
           <Route exact path="/campuses/new" component={NewCampus}></Route>
           <Route exact path="/campuses/:id" component={SingleCampus}></Route>
-          <Route exact path="/students" component={AllStudentsContainer, AllStudents}></Route>
+          <Route exact path="/students" component={AllStudentsContainer}></Route>
+          <Route exact path="/students/new" component={NewStudent}></Route>
         </Switch>
       </Router>
     </div>
