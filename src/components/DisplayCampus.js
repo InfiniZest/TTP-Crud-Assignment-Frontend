@@ -29,7 +29,9 @@ class DisplayCampus extends Component {
           <img src={this.props.imageUrl} alt="campus image" width="150px"></img>
           <br />
           <button onClick={this.handleClick}>DELETE</button>
-          <button>EDIT</button>
+          <Link to={`campus/edit/${this.props.id}`}>
+            <button>EDIT</button>
+          </Link>
           <br />
           <Link to={myLink}>View Campus</Link>
         </div>

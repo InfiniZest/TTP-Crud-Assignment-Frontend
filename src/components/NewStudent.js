@@ -19,31 +19,30 @@ class NewStudent extends Component {
     };
   }
 
-  // handleChange = (e) => {
-  //   const updatedObj = { ...this.state.obj };
-  //   const inputField = e.target.name;
-  //   const inputValue = e.target.value;
-  //   updatedObj[inputField] = inputValue;
+  handleChange = (e) => {
+    const updatedObj = { ...this.state.obj };
+    const inputField = e.target.name;
+    const inputValue = e.target.value;
+    updatedObj[inputField] = inputValue;
 
-  //   this.setState({ obj: updatedObj });
-  // };
+    this.setState({ obj: updatedObj });
+  };
 
-  //   handleSubmit = (e) => {
-  //     e.preventDefault();
-  //     this.props.addNew(this.state.obj);
-  //     this.submitted();
-  //   };
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.addNew(this.state.obj);
+    this.submitted();
+  };
 
-  //   submitted = () => {
-  //     console.log("i got called");
-  //     this.setState({ redirect: true });
-  //   };
+  submitted = () => {
+    console.log("i got called");
+    this.setState({ redirect: true });
+  };
 
   render() {
     return (
       <div>
-        Test
-        {/* <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit}>
           <label>First Name: </label>
           <input
             name="firstName"
@@ -64,23 +63,23 @@ class NewStudent extends Component {
           ></input>
 
           <input type="submit" value="Submit"></input>
-        </form> */}
+        </form>
       </div>
     );
   }
 }
 
-// const mapStateToProps = (state) => {
-//   return {
-//     students: state.students,
-//     singleStudent: state.singleStudent,
-//   };
-// };
+const mapStateToProps = (state) => {
+  return {
+    students: state.students,
+    singleStudent: state.singleStudent,
+  };
+};
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     addNew: (obj) => dispatch(addNewStudent(obj)),
-//   };
-// };
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addNew: (obj) => dispatch(addNewStudent(obj)),
+  };
+};
 
-export default NewStudent;
+export default connect(mapStateToProps, mapDispatchToProps)(NewStudent);

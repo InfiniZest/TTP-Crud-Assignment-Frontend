@@ -13,14 +13,14 @@ class AllStudents extends Component {
 
   render() {
     console.log(this.props);
-    if (this.props.students.length > 0)
+    if (this.props.myStudents.length > 0)
       return (
         <div>
-          <Link to="/students/new">
+          <Link to="/student/new">
             <button>Add New Student</button>
           </Link>
 
-          {this.props.students.map((item, index) => {
+          {this.props.myStudents.map((item, index) => {
             return (
               <DisplayStudent
                 id={item.id}
@@ -38,7 +38,7 @@ class AllStudents extends Component {
     else
       return (
         <div>
-          <Link to="/students/new">
+          <Link to="/student/new">
             <button>Add New Student</button>
           </Link>
 
@@ -50,7 +50,7 @@ class AllStudents extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    students: state.students,
+    myStudents: state.students,
   };
 };
 
