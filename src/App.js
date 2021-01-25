@@ -19,9 +19,9 @@ function App() {
     <div className="App">
       <Router>
         <div className="navbar">
-          <Link to="/">Home</Link>
-          <Link to="/campuses">All Campuses</Link>
-          <Link to="/students">All Students</Link>
+          <Link to="/">HOME</Link>
+          <Link to="/campuses">CAMPUSES</Link>
+          <Link to="/students">STUDENTS</Link>
         </div>
         <Switch>
           <Route exact path="/"></Route>

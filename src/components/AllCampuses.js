@@ -16,22 +16,25 @@ class AllCampuses extends Component {
     console.log(this.props);
     if (this.props.campuses.length > 0)
       return (
-        <div class="displayAll">
-          <Link to="/campuses/new">
-            <button className="addNew">Add New Campus</button>
-          </Link>
-
-          {this.props.campuses.map((item, index) => {
-            return (
-              <DisplayCampus
-                key={index}
-                name={item.name}
-                imageUrl={item.imageUrl}
-                id={item.id}
-                students={item.students}
-              />
-            );
-          })}
+        <div>
+          <div>
+            <Link to="/campuses/new">
+              <button className="addNew">Add New Campus</button>
+            </Link>
+          </div>
+          <div className="displayAll">
+            {this.props.campuses.map((item, index) => {
+              return (
+                <DisplayCampus
+                  key={index}
+                  name={item.name}
+                  imageUrl={item.imageUrl}
+                  id={item.id}
+                  students={item.students}
+                />
+              );
+            })}
+          </div>
         </div>
       );
     else

@@ -26,7 +26,7 @@ class SingleStudent extends Component {
     if (this.state.redirect) return <Redirect to="/students"></Redirect>;
     else if (this.props.singleStudent)
       return (
-        <div>
+        <div className="card">
           Last Name: {this.props.singleStudent.lastName}
           <br />
           First Name: {this.props.singleStudent.firstName}

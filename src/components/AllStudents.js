@@ -17,22 +17,24 @@ class AllStudents extends Component {
       return (
         <div>
           <Link to="/student/new">
-            <button>Add New Student</button>
+            <button className="addNew">Add New Student</button>
           </Link>
 
-          {this.props.myStudents.map((item, index) => {
-            return (
-              <DisplayStudent
-                id={item.id}
-                key={index}
-                firstName={item.firstName}
-                lastName={item.lastName}
-                gpa={item.gpa}
-                email={item.email}
-                imageUrl={item.imageUrl}
-              />
-            );
-          })}
+          <div className="displayAll">
+            {this.props.myStudents.map((item, index) => {
+              return (
+                <DisplayStudent
+                  id={item.id}
+                  key={index}
+                  firstName={item.firstName}
+                  lastName={item.lastName}
+                  gpa={item.gpa}
+                  email={item.email}
+                  imageUrl={item.imageUrl}
+                />
+              );
+            })}
+          </div>
         </div>
       );
     else

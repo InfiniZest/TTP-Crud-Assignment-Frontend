@@ -20,7 +20,7 @@ class DisplayStudent extends Component {
     if (this.state.redirect) return <Redirect to="/students"></Redirect>;
     const myLink = `/students/${this.props.id}`;
     return (
-      <div>
+      <div className="singleCampus">
         Last Name: {this.props.lastName}
         <br />
         First Name: {this.props.firstName}

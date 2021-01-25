@@ -43,29 +43,91 @@
   box-sizing: border-box;
 }
 
+body {
+  font-family: "Courier New", Courier, monospace;
+  background-color: #2e3532;
+}
+
 .navbar {
   display: flex;
   justify-content: center;
-  background-color: antiquewhite;
-  padding: 0.5em;
+  background-color: #7e9181;
 }
-
 .navbar a {
   text-decoration: none;
   padding: 1em;
-  background-color: aquamarine;
-  margin: 0px 5px;
+  background-color: #a0aab2;
+  margin: 5px;
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+  border-radius: 0.2em;
+  border: 2.5px solid white;
 }
 
 .displayAll {
   display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .singleCampus {
-  background-color: azure;
+  background-color: #c7cedb;
   margin: 3px;
+  padding: 0.5em;
+  border: 2px solid white;
 }
 
+button {
+  background-color: #94849b;
+  border-radius: 0.3em;
+  border: 1px solid #7e9181;
+  padding: 0.4em;
+  margin: 2px;
+}
 .addNew {
-  width: 100%;
+  margin: 5px;
+  padding: 1em;
+}
+
+a {
+  text-decoration: none;
+  color: #2e3532;
+}
+
+form {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  margin: 5px auto;
+  padding: 1em;
+}
+
+.card {
+  background-color: #c7cedb;
+
+  width: 50%;
+  margin: 5px auto;
+  padding: 0.5em;
+  border: 2px solid white;
+}
+
+.studentListBlock {
+  background-color: #c7cedb;
+  width: 50%;
+  margin: 2px auto;
+}
+.studentList {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  margin: 0 auto;
+}
+
+.studentListItem {
+  background-color: white;
+  border-bottom: 0.5px solid black;
+  margin: 2px;
+  text-align: center;
 }

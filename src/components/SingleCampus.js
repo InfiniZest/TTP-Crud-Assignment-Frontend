@@ -25,35 +25,40 @@ class SingleCampus extends Component {
     if (this.props.singleCampus && this.props.singleCampus.students)
       return (
         <div>
-          Campus Name: {this.props.singleCampus.name}
-          <br />
-          Address: {this.props.singleCampus.address}
-          <br />
-          Description: {this.props.singleCampus.description}
-          <br />
-          <img
-            src={this.props.singleCampus.imageUrl}
-            alt="campus image"
-            width="200px"
-          ></img>
-          <br />
-          <button onClick={this.deleteCampus}>DELETE</button>
-          <Link to={`/campus/edit/${this.props.singleCampus.id}`}>
-            <button>EDIT</button>
-          </Link>
-          <br />
-          <div>
+          <div className="card">
+            Campus Name: {this.props.singleCampus.name}
+            <br />
+            Address: {this.props.singleCampus.address}
+            <br />
+            Description: {this.props.singleCampus.description}
+            <br />
+            <img
+              src={this.props.singleCampus.imageUrl}
+              alt="campus image"
+              width="200px"
+            ></img>
+            <br />
+            <button onClick={this.deleteCampus}>DELETE</button>
+            <Link to={`/campus/edit/${this.props.singleCampus.id}`}>
+              <button>EDIT</button>
+            </Link>
+            <br />
+          </div>
+
+          <div className="studentListBlock">
             Students:
-            {this.props.singleCampus.students.map((item) => {
-              return (
-                <Link to={`/students/${item.id}`}>
-                  <div>
-                    <img src={item.imageUrl} width="60px" />
-                    {item.lastName} {item.firstName}
-                  </div>
-                </Link>
-              );
-            })}
+            <div className="studentList">
+              {this.props.singleCampus.students.map((item) => {
+                return (
+                  <Link to={`/students/${item.id}`}>
+                    <div className="studentListItem">
+                      <img src={item.imageUrl} width="50px" />
+                      {item.lastName} {item.firstName}
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
           </div>
           {this.props.singleCampus.students.length === 0
             ? "no students enrolled"
